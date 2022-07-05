@@ -1,54 +1,76 @@
 package com.syc.findJob.juc.thread;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.*;
 
 public class ThreadDemo {
-    public static void main(String[] args) {
-        MyThread t1 = new MyThread();
+    public static void main(String[] args) throws ExecutionException, InterruptedException{
 
-        Thread t2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    System.out.println("线程: " + Thread.currentThread().getName() + "开始准备...");
-                    Thread.sleep(3000);
-                    System.out.println("线程: " + Thread.currentThread().getName() + "开始行动");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        ThreadDemo demo = new ThreadDemo();
+        demo.threadCreateMethod1();
+        demo.threadCreateMethod2();
+        demo.threadCreateMethod3();
+        demo.threadCreateMethod4();
+        demo.threadCreateMethod5();
 
-
-        FutureTask<Integer> futureTask = new FutureTask<Integer>(new MyTask());
-        Thread t3 = new Thread(futureTask);
-
-        Thread t4 = new Thread(() -> {
-            System.out.println("线程: " + Thread.currentThread().getName() + "行动完毕");
-        });
-        t4.start();
-
-        t1.start();
-        t2.start();
-        t3.start();
-
-        System.out.println("准备行动");
-
-        int res = 0;
-        try{
-            res = futureTask.get();
-        }catch (ExecutionException | InterruptedException e) {
-            System.out.println("等待时退出");
-        }
-        System.out.println("线程: " + Thread.currentThread().getName() + "结果: " + res);
     }
 
-    static class MyThread extends Thread{
+    public void threadCreateMethod1() {
+        MyThread myThread = new MyThread();
+        myThread.start();
+    }
+
+    public void threadCreateMethod2() {
+        Thread thread = new Thread(new RunnableTask());
+        thread.start();
+    }
+
+    public void threadCreateMethod3() throws ExecutionException, InterruptedException {
+        FutureTask<Integer> futureTask = new FutureTask<Integer>(new CallableTask());
+        Thread thread = new Thread(futureTask);
+        thread.start();
+        System.out.println("当前线程" + thread.getName() + "的返回结果是：" + futureTask.get());
+    }
+
+    public void threadCreateMethod4() {
+        Thread thread = new Thread(()->{
+            System.out.println("方法4， 线程: " + Thread.currentThread().getName() + "创建完毕！");
+        });
+        thread.start();
+    }
+
+    public void threadCreateMethod5() {
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        executorService.execute(new ThreadPoolRunnableTask());
+        executorService.shutdown();
+    }
+
+    class MyThread extends Thread {
         @Override
         public void run() {
-            System.out.println("线程: " + Thread.currentThread().getName() + "行动完毕");
+            System.out.println("方法1， 线程: " + Thread.currentThread().getName() + "创建完毕！");
+        }
+    }
+
+    class RunnableTask implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("方法2， 线程：" + Thread.currentThread().getName() + "创建完毕！");
+        }
+    }
+
+    class ThreadPoolRunnableTask implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("方法5， 线程：" + Thread.currentThread().getName() + "创建完毕！");
+        }
+    }
+
+    class CallableTask implements Callable<Integer> {
+
+        @Override
+        public Integer call() throws Exception {
+            System.out.println("方法3， 线程：" + Thread.currentThread().getName() + "创建完毕！");
+            return 2;
         }
     }
 

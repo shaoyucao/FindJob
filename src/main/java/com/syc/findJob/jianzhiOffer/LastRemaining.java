@@ -21,6 +21,15 @@ public class LastRemaining {
         return list.get(0);
     }
 
+    //数学方法推算，了解即可
+    public int lastRemaining2(int n, int m) {
+        int index = 0;
+        for(int i = 2; i <= n; ++i) {
+            index = (index + m) % i;
+        }
+        return index;
+    }
+
     public static void main(String[] args) {
         int n = 10, m = 17;
         int res = new LastRemaining().lastRemaining(n, m);

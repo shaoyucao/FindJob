@@ -11,7 +11,8 @@ import java.util.concurrent.Executors;
 public class CountDownLatchDemo1 {
     public static void main(String[] args) throws InterruptedException {
         CountDownLatch countDownLatch = new CountDownLatch(5);
-        ExecutorService executorService = Executors.newFixedThreadPool(6);
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        System.out.println("检察员开始检查工作...");
         for (int i = 0; i < 5; i++) {
             int no = i + 1;
             Runnable runnable = new Runnable() {
@@ -30,12 +31,11 @@ public class CountDownLatchDemo1 {
             };
             executorService.execute(runnable);
         }
-        System.out.println("检察员开始检查工作...");
         countDownLatch.await();
         System.out.println("检察员检查工作完毕");
         executorService.shutdown();
 
-    };
+    }
 }
 
 

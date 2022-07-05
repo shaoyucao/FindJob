@@ -11,6 +11,7 @@ public class CountDownLatchDemo2 {
     public static void main(String[] args) throws InterruptedException {
         CountDownLatch countDownLatch = new CountDownLatch(1);
         ExecutorService executorService = Executors.newFixedThreadPool(5);
+        System.out.println("裁判员、运动员开始准备...");
         for(int i = 0; i < 5; i++) {
             int no = i + 1;
             Runnable runnable = new Runnable() {
@@ -29,7 +30,6 @@ public class CountDownLatchDemo2 {
             executorService.submit(runnable);
         }
 
-        System.out.println("裁判员、运动员开始准备...");
         Thread.sleep(3000);
         System.out.println("枪响！");
         countDownLatch.countDown();
