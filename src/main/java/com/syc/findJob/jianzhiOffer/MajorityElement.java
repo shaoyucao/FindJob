@@ -16,6 +16,11 @@ public class MajorityElement {
 
     }
 
+    /**
+     * 基于快速排序的查找算法
+     * @param nums
+     * @return
+     */
     public int majorityElement2(int[] nums) {
         if(nums == null || nums.length == 0)
             return 0;
@@ -37,6 +42,11 @@ public class MajorityElement {
         return nums[mid];
     }
 
+    /**
+     * 一次遍历，用数字出现的次数来考量是否是出现次数最多的那个元素
+     * @param nums
+     * @return
+     */
     public int majorityElement3(int[] nums) {
         if(null == nums || nums.length == 0)
             return 0;

@@ -5,7 +5,39 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class GetLeastNumbers {
-    //基于最大堆的解法，时间复杂度为O(nlogk)
+
+    //解法1：基于快排partition的解法，时间复杂度为O(n)。如果允许修改数组中元素的位置，在时间效率上优于基于最大堆的解法。
+    public int[] getLeastNumbers(int[] arr, int k){
+
+        if(null == arr || arr.length == 0 || k <= 0 || k > arr.length) {
+            return new int[0];
+        }
+
+        int len = arr.length;
+        int l = 0, r = len - 1;
+
+        int index = partition(arr, l, r);
+
+        while(index != k-1) {
+            if(index > k-1) {
+                r = index - 1;
+                index = partition(arr, l, r);
+            }
+            else {
+                l = index + 1;
+                index = partition(arr, l, r);
+            }
+        }
+
+        int[] ret = new int[k];
+        for(int i = 0; i < k; ++i) {
+            ret[i] = arr[i];
+        }
+
+        return ret;
+    }
+
+    //解法2：基于最大堆的解法，时间复杂度为O(nlogk)
     public int[] getLeastNumbers2(int[] arr, int k) {
 
         if(null == arr || arr.length == 0 || k <= 0 || k > arr.length) {
@@ -39,37 +71,6 @@ public class GetLeastNumbers {
             res[i] = queue.poll();
         }
         return res;
-    }
-
-    //基于快排partition的解法，时间复杂度为O(n)
-    public int[] getLeastNumbers(int[] arr, int k){
-
-        if(null == arr || arr.length == 0 || k <= 0 || k > arr.length) {
-            return new int[0];
-        }
-
-        int len = arr.length;
-        int l = 0, r = len - 1;
-
-        int index = partition(arr, l, r);
-
-        while(index != k-1) {
-            if(index > k-1) {
-                r = index - 1;
-                index = partition(arr, l, r);
-            }
-            else {
-                l = index + 1;
-                index = partition(arr, l, r);
-            }
-        }
-
-        int[] ret = new int[k];
-        for(int i = 0; i < k; ++i) {
-            ret[i] = arr[i];
-        }
-
-        return ret;
     }
 
     public int partition(int[] arr, int l, int r) {
