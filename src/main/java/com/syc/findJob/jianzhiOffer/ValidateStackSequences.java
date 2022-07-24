@@ -5,20 +5,29 @@ import java.util.Stack;
 public class ValidateStackSequences {
     public boolean validateStackSequences(int[] pushed, int[] popped) {
         Stack<Integer> stack = new Stack<>();
-        int i = 0;
-        for(int num : pushed) { //以入栈元素为基准，元素需要全部入栈
-            stack.push(num);
-            while(!stack.isEmpty() && stack.peek() == popped[i]) {
+        if(null == pushed || null == popped || pushed.length != popped.length)
+            return false;
+        if(pushed.length == 0)
+            return true;
+        int i = 0, j = 0;
+        int n = pushed.length;
+        while(i < n) {
+            //入队
+            stack.push(pushed[i++]);
+
+            //出队
+            while(!stack.isEmpty() && stack.peek() == popped[j]) {
                 stack.pop();
-                i++;
+                j++;
             }
         }
         return stack.isEmpty();
+
     }
 
     public static void main(String[] args) {
-        int[] pushed = {1,0};
-        int[] popped = {1,0};
+        int[] pushed = {1,2,3,4,5};
+        int[] popped = {4,3,5,1,2};
         System.out.println(new ValidateStackSequences().validateStackSequences(pushed, popped));
     }
 }

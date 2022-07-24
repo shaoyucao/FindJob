@@ -48,4 +48,45 @@ public class MirrorTree {
         return root;
     }
 
+
+    ///////////////  review
+
+    /**
+     * 递归方法
+     * @param root
+     * @return
+     */
+    public TreeNode mirrorTree3(TreeNode root) {
+        if(null == root)
+            return null;
+        TreeNode left = root.left;
+        root.left = mirrorTree3(root.right);
+        root.right = mirrorTree3(left);
+        return root;
+    }
+
+    public TreeNode mirrorTree4(TreeNode root) {
+        if(null == root)
+            return null;
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while(!queue.isEmpty()) {
+            TreeNode cur = queue.removeFirst();
+            swap(cur);
+            if(null != cur.left)
+                queue.addLast(cur.left);
+            if(null != cur.right)
+                queue.addLast(cur.right);
+        }
+        return root;
+    }
+
+    public void swap(TreeNode root) {
+        if(!(null == root.left && null == root.right)) {
+            TreeNode right = root.right;
+            root.right = root.left;
+            root.left = right;
+        }
+    }
+
 }

@@ -71,4 +71,32 @@ public class CopyRandomList {
         return newHead;
     }
 
+    //////////////// review
+    public Node copyRandomList4(Node head) {
+        if(null == head)
+            return null;
+        Node cur = head;
+        while(null != cur) {
+            Node node = new Node(cur.val);
+            node.next = cur.next;
+            cur.next = node;
+            cur = cur.next.next;
+        }
+        cur = head;
+        Node newNode = head.next;
+        //特别注意，找随机节点和拆分奇偶节点不能合到一个循环里，否则在找下一个节点的时候会指到原先的节点
+        while(null != cur) {
+            cur.next.random = cur.random == null ? null : cur.random.next;
+            cur = cur.next.next;
+        }
+        cur = head;
+        while(null != cur) {
+            Node next = cur.next.next;
+            cur.next.next = next == null ? null : next.next;
+            cur.next = next;
+            cur = next;
+        }
+        return newNode;
+    }
+
 }

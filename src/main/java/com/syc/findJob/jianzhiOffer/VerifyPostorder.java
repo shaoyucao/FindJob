@@ -1,7 +1,8 @@
 package com.syc.findJob.jianzhiOffer;
 
-import java.util.Arrays;
-
+/**
+ * 二叉搜索树的后序序列
+ */
 public class VerifyPostorder {
     public boolean verifyPostorder(int[] postorder) {
 
@@ -27,7 +28,7 @@ public class VerifyPostorder {
                 break;
         }
 
-        //右边的值都大于根节点值
+        //该节点以及右边的值都必须大于根节点值
         for(int j = index; j < end; j++) {
             if(postorder[j] < rootVal)
                 return false;
@@ -46,4 +47,5 @@ public class VerifyPostorder {
         return left && right;
 
     }
+
 }

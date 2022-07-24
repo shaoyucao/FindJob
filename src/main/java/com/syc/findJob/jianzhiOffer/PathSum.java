@@ -4,7 +4,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * 二叉树中和为某一值的路径
+ */
 public class PathSum {
+    /**
+     * 递归回溯
+     * @param root
+     * @param target
+     * @return
+     */
     public List<List<Integer>> pathSum(TreeNode root, int target) {
 
         List<List<Integer>> ret = new ArrayList<>();
@@ -36,5 +45,38 @@ public class PathSum {
 
         path.pollLast();
 
+    }
+
+    ///////////// review
+    List<List<Integer>> res;
+    public List<List<Integer>> pathSum2(TreeNode root, int target) {
+        res = new ArrayList<>();
+        if(null == root)
+            return res;
+        ArrayList<Integer> path = new ArrayList<>();
+        pathSum2(root, target, path);
+        return res;
+    }
+
+    public void pathSum2(TreeNode root, int target, ArrayList<Integer> path) {
+        if(null == root)
+            return;
+        int value = root.val;
+        path.add(value);
+        if(root.val == target && root.left == null && root.right == null) {
+            res.add(new ArrayList<>(path));
+        }
+        pathSum2(root.left, target-value, path);
+        pathSum2(root.right, target-value, path);
+        path.remove(path.size()-1);
+    }
+
+    public static void main(String[] args) {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(4);
+        list.remove(list.size()-1);
+        System.out.println(list);
     }
 }

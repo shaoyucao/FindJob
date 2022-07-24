@@ -34,4 +34,12 @@ public class MinStack {
             return Integer.MAX_VALUE;
         return subStack.peek();
     }
+
+    public static void main(String[] args) {
+        Stack<Integer> s = new Stack<>();
+        s.add(1);
+        System.out.println(s.size());
+        int x = s.pop();
+        System.out.println(s.size());
+    }
 }
