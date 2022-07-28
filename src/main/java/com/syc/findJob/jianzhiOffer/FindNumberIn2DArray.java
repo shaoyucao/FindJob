@@ -1,7 +1,5 @@
 package com.syc.findJob.jianzhiOffer;
 
-import java.util.Arrays;
-
 /**
  * 二维数组中的查找
  */
@@ -89,6 +87,51 @@ public class FindNumberIn2DArray {
                     break;
                 }
             }
+        }
+        return false;
+    }
+
+    ///////// review
+
+    /**
+     * 时间O(n^2)， 空间O(1)
+     * 暴力扫描
+     * @param matrix
+     * @param target
+     * @return
+     */
+    public static boolean findNumberIn2DArray2_1(int[][] matrix, int target){
+        if(null == matrix || matrix.length == 0 || matrix[0].length == 0)
+            return false;
+        int m = matrix.length, n = matrix[0].length;
+        for(int i = 0; i < m; ++i) {
+            for(int j = 0; j < n; ++j) {
+                if(matrix[i][j] == target)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 时间O(m+n), 空间O(1)
+     * 利用矩阵规律，从右上角（或者左下角）的元素开始查找
+     * @param matrix
+     * @param target
+     * @return
+     */
+    public static boolean findNumberIn2DArray2_2(int[][] matrix, int target){
+        if(null == matrix || matrix.length == 0 || matrix[0].length == 0)
+            return false;
+        int m = matrix.length, n = matrix[0].length;
+        int i = 0, j = n - 1;
+        while(i < m && j >= 0) {
+            if(target == matrix[i][j])
+                return true;
+            if(target < matrix[i][j])
+                --j;
+            else
+                ++i;
         }
         return false;
     }
