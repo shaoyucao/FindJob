@@ -1,6 +1,32 @@
-基础算法+剑指Offer习题+LeetCode习题
+# Repository Content
 
-动态规划
-递归（重叠子问题，含有大量重复计算）
-->记忆化搜索（使用辅助数组，自上而下的解决问题）
-->动态规划（自下而上的解决问题）
+- 基础排序算法
+  - SelectSort
+  - InsertSort
+  - BubbleSort
+  - MergeSort
+  - QuickSort
+  - HeapSort
+- Java基础：
+  - Generics
+  - Reflection
+- 剑指offer第二版习题
+  - Array
+  - String
+  - HashMap
+  - Priority Queue
+  - LinkedList
+  - ListNode
+  - Binary Tree
+  - BinarySearch
+  - Recursion
+  - Greedy
+  - Dynamic Plan
+- juc并发包
+  - hreadpool
+  - Threadlocal 
+  - Lock
+  - Atomic
+  - ControlFlow
+- LeetCode
+- JVM
