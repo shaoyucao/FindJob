@@ -36,6 +36,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.4</version>
+		</dependency>
 <!--		<dependency>-->
 <!--			<groupId>org.apache.rocketmq</groupId>-->
 <!--			<artifactId>rocketmq-client</artifactId>-->
