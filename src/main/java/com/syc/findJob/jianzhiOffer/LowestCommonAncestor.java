@@ -19,10 +19,13 @@ public class LowestCommonAncestor {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if(null == root)
             return null;
+        //先进行一次前序遍历，并记录每个节点的父节点，存储形式为: {node, root}
         dfs(root, root);
+        //获取从当前节点到根节点的路径
         LinkedList<TreeNode> pathOfP = getToRootPath(p, root);
         LinkedList<TreeNode> pathOfQ = getToRootPath(q, root);
         TreeNode res = root;
+        //从后往前，依次比较
         while(pathOfQ.peekLast() == pathOfP.peekLast()) {
             res = pathOfP.pollLast();
             pathOfQ.pollLast();
@@ -48,17 +51,24 @@ public class LowestCommonAncestor {
         return res;
     }
 
+    //二叉树的最近公共祖先
+    // 1.要么一个在左边，一个在右边，该种情况返回当前节点；
+    // 2.要么两个在同一侧，则返回其中一个父节点，作为公共节点
+    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
+        if(null == root)
+            return null;
+        if(p.val == root.val || q.val == root.val)
+            return root;
 
+        TreeNode findLeft = lowestCommonAncestor2(root.left, p, q);
+        TreeNode findRight = lowestCommonAncestor2(root.right, p, q);
 
-//    public List<TreeNode> dfs(TreeNode root, TreeNode node) {
-//        List<TreeNode> list = new ArrayList<>();
-//        if(null == root)
-//            return list;
-//        list.add(root);
-//        if(root == node)
-//            return;
-//        dfs(root.left, node, list);
-//        dfs(root.right, node, list);
-//        list.remove(list.size()-1);
-//    }
+        if(findLeft != null && findRight != null)
+            return root;
+        if(findLeft == null) {
+            return findRight;
+        }
+        else
+            return findLeft;
+    }
 }

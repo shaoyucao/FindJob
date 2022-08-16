@@ -36,4 +36,28 @@ public class CuttingRope {
         int n = 10;
         System.out.println(new CuttingRope().cuttingRope2(n));
     }
+
+    ///review
+
+    /**
+     * 动态规划，时间复杂度O(n^2), 空间复杂度O(n)
+     * @param n
+     * @return
+     */
+    public int cuttingRope3(int n) {
+        if(n < 2)
+            return 1;
+        int[] dp = new int[n+1];
+        dp[1] = 1;
+        for(int i = 2; i <= n; ++i) {
+            for(int j = 1; j <= i / 2; j++) {
+                dp[i] = max(dp[i], j * (i-j), j * dp[i-j]);
+            }
+        }
+        return dp[n];
+    }
+
+    public int max(int a, int b, int c) {
+        return Math.max(Math.max(a,b),c);
+    }
 }

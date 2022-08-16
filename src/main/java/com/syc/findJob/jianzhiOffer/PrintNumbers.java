@@ -3,7 +3,15 @@ package com.syc.findJob.jianzhiOffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * 打印从1到最大的n位数
+ */
 public class PrintNumbers {
+    /**
+     * 递归回溯方法
+     * @param n
+     * @return
+     */
     public int[] printNumbers(int n) {
 
         ArrayList<Integer> list = new ArrayList<>();

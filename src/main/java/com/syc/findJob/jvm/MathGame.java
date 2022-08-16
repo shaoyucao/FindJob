@@ -57,11 +57,7 @@ public class MathGame {
                 i++;
             }
         }
-
-        List<Integer> res = new ArrayList<Integer>();
-        res.add(1);
-        res.add(5);
-        return res;
+        return result;
     }
 }
 
