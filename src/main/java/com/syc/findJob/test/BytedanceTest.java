@@ -7,7 +7,7 @@ class ListNode {
         this.val = val;
     }
 }
-public class Reverse {
+public class BytedanceTest {
 
     public static void main(String[] args) {
         ListNode node1 = new ListNode(1);
