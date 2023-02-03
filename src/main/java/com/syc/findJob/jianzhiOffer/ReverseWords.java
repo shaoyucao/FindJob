@@ -15,20 +15,17 @@ public class ReverseWords {
             return null;
         s = s.trim();
         int n = s.length();
-        int j = n-1, i = n-1;
+        int j = n-1, i = j;
         StringBuilder sb = new StringBuilder();
         while(i >= 0) {
-            while(j >= 0 && s.charAt(j) == ' ')
-                --j;
-            i = j;
             while(i >= 0 && s.charAt(i) != ' ')
                 --i;
-            sb.append(s.substring(i+1, j+1));
+            sb.append(s, i + 1, j + 1).append(" ");
+            while(i >= 0 && s.charAt(i) == ' ')
+                --i;
             j = i;
-            if(i != -1)
-                sb.append(" ");
         }
-        return sb.toString();
+        return sb.toString().trim();
     }
 
     public String reverseWords2(String s) {
